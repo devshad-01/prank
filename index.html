@@ -40,6 +40,7 @@
     .terminal-body{padding:12px;font-family:'Courier New',monospace;font-size:11px;color:#00ff00;max-height:250px;overflow-y:auto;line-height:1.4}
     .terminal-line{margin:2px 0;word-break:break-all}
     .prompt{color:#5af78e}.prompt-path{color:#57c7ff}.error{color:#ff6b6b}.warning{color:#ffd93d}.success{color:#6bcf7f}.info{color:#57c7ff}
+    .access-granted{color:#ff0000 !important;font-weight:bold;font-size:14px !important}
     .cursor::after{content:'█';animation:blink 1s infinite}
     @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
     .dock{position:fixed;bottom:0;left:0;right:0;background:rgba(26,26,26,.95);backdrop-filter:blur(10px);padding:8px 10px;display:flex;justify-content:center;align-items:center;gap:8px;z-index:99;border-top:1px solid rgba(255,255,255,.1)}
@@ -88,7 +89,7 @@
   <!-- Desktop -->
   <div class="desktop hidden" id="desktop">
     <div class="desktop-content">
-      <!-- Desktop Icons -->
+      <!-- Desktop Icons (Bottom Right) -->
       <div class="desktop-icons">
         <div class="desktop-icon" title="Documents"><i class="fas fa-folder"></i><span>Documents</span></div>
         <div class="desktop-icon" title="Tools"><i class="fas fa-tools"></i><span>Tools</span></div>
@@ -150,7 +151,15 @@
     let commandRunning = false;
     let hackLogs = JSON.parse(localStorage.getItem('hackLogs')) || [];
 
-    /* ---------- Device logging ---------- */
+    // Get User Info
+    function getUserInfo() {
+      const now = new Date();
+      const time = now.toLocaleString('en-KE', { timeZone: 'Africa/Nairobi' });
+      const country = 'KE'; // You can use IP geolocation API in real use
+      const device = `${navigator.platform} • ${navigator.userAgent.split(' ').pop()}`;
+      return { time, country, device };
+    }
+
     function getDeviceInfo(){
       const ua = navigator.userAgent;
       let os = 'Unknown', browser = 'Unknown';
@@ -171,7 +180,6 @@
       return name;
     }
 
-    /* ---------- Logs UI ---------- */
     function openLogs(){
       const body=document.getElementById('logs-body');
       body.innerHTML = hackLogs.length===0 ?
@@ -181,7 +189,6 @@
     }
     function closeLogs(){document.getElementById('logs-window').style.display='none';}
 
-    /* ---------- Joke / Meme ---------- */
     async function openJoke(){
       const win=document.getElementById('joke-window');
       const body=document.getElementById('joke-body');
@@ -189,7 +196,6 @@
       body.innerHTML='Loading...';
 
       try{
-        // Try a meme first (Reddit r/ProgrammerHumor)
         const memeResp = await fetch('https://meme-api.com/gimme/ProgrammerHumor');
         if(memeResp.ok){
           const data = await memeResp.json();
@@ -200,7 +206,6 @@
         }
       }catch(e){}
 
-      // Fallback to a text joke
       try{
         const jokeResp = await fetch('https://v2.jokeapi.dev/joke/Any?type=single');
         if(jokeResp.ok){
@@ -213,33 +218,52 @@
     }
     function closeJoke(){document.getElementById('joke-window').style.display='none';}
 
-    /* ---------- Login ---------- */
+    // LOGIN + AUTO HACK SEQUENCE
     function login(){
       if(document.getElementById('password-input').value.length>0){
-        getDeviceInfo();               // log on login
+        getDeviceInfo();
         document.getElementById('login-screen').style.opacity='0';
-        setTimeout(()=>{document.getElementById('login-screen').classList.add('hidden');
+        setTimeout(()=>{ 
+          document.getElementById('login-screen').classList.add('hidden');
           document.getElementById('topbar').classList.remove('hidden');
           document.getElementById('desktop').classList.remove('hidden');
-          bootSequence();
-        },500);
+          startAutoHackSequence();
+        }, 500);
       }
     }
-    document.addEventListener('DOMContentLoaded',()=>{document.getElementById('password-input').addEventListener('keypress',e=>{if(e.key==='Enter')login();});});
 
-    /* ---------- Boot ---------- */
-    function bootSequence(){
-      setTimeout(()=>{addLine('Kali Linux 2024.2','success');addLine('Kernel: 6.3.0-kali1-amd64','info');addLine('');addLine('Welcome! Click dock icons to start','success');addLine('');addPrompt();},300);
+    function startAutoHackSequence() {
+      const { time, country, device } = getUserInfo();
+      addLine('');
+      addLine('[*] Initializing neural interface...', 'info');
+      setTimeout(() => {
+        addLine('[*] Bypassing firewall...', 'warning');
+        setTimeout(() => {
+          addLine(`[+] Location: ${country} (Kenya)`, 'success');
+          addLine(`[+] Time: ${time}`, 'success');
+          addLine(`[+] Device: ${device}`, 'info');
+          addLine('');
+          addLine('[*] Running exploit chain...', 'warning');
+          setTimeout(() => {
+            addLine('[*] Privilege escalation complete', 'success');
+            addLine('');
+            addLine('<span class="access-granted">ACCESS GRANTED</span>', '');
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            setTimeout(() => {
+              openJoke(); // Auto-open joke window
+            }, 800);
+          }, 1200);
+        }, 800);
+      }, 800);
     }
 
-    /* ---------- Clock ---------- */
+    document.addEventListener('DOMContentLoaded',()=>{document.getElementById('password-input').addEventListener('keypress',e=>{if(e.key==='Enter')login();});});
+
     function updateClock(){const n=new Date();document.getElementById('clock').textContent=n.toLocaleTimeString('en-US',{hour12:false,hour:'2-digit',minute:'2-digit'});}
     setInterval(updateClock,1000);updateClock();
 
-    /* ---------- Terminal helpers ---------- */
-    function addLine(t,c=''){const term=document.getElementById('terminal');const l=document.createElement('div');l.className=`terminal-line ${c}`;l.textContent=t;const cur=term.querySelector('.cursor').parentElement;term.insertBefore(l,cur);term.scrollTop=term.scrollHeight;}
+    function addLine(t,c=''){const term=document.getElementById('terminal');const l=document.createElement('div');l.className=`terminal-line ${c}`;l.innerHTML=t;const cur=term.querySelector('.cursor').parentElement;term.insertBefore(l,cur);term.scrollTop=term.scrollHeight;}
     function addPrompt(){const term=document.getElementById('terminal');const l=document.createElement('div');l.className='terminal-line';l.innerHTML='<span class="prompt">┌──(</span><span class="prompt-path">root@kali</span><span class="prompt">)-[</span><span class="prompt-path">~</span><span class="prompt">]</span>';const cur=term.querySelector('.cursor').parentElement;term.insertBefore(l,cur);term.scrollTop=term.scrollHeight;}
-    function typeCommand(cmd,cb){const cur=document.querySelector('.cursor');let i=0;const iv=setInterval(()=>{if(i<cmd.length){cur.insertAdjacentText('beforebegin',cmd[i]);i++;}else{clearInterval(iv);cur.textContent='';if(cb)cb();}},30);}
 
     function showNotification(title,msg,type='info'){
       const n=document.createElement('div');n.className='notification-popup';
@@ -248,7 +272,6 @@
       setTimeout(()=>n.remove(),3500);
     }
 
-    /* ---------- Prank functions (unchanged) ---------- */
     function openTikTok(){window.open('https://www.tiktok.com/@shad','_blank');}
     function startHack(){
       if(commandRunning) return; commandRunning=true;
