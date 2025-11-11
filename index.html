@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kali Linux</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      background: #000;
+    }
+    
+    /* Login Screen */
+    .login-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0d1117;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    }
+    
+    .login-box {
+      background: #161b22;
+      border: 1px solid #30363d;
+      padding: 3rem 2rem;
+      border-radius: 6px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+    
+    .login-avatar {
+      width: 100px;
+      height: 100px;
+      background: #0d1117;
+      border: 3px solid #30363d;
+      border-radius: 50%;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: #58a6ff;
+    }
+    
+    .login-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #c9d1d9;
+      font-family: 'Courier New', monospace;
+    }
+    
+    .login-subtitle {
+      color: #8b949e;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      font-family: 'Courier New', monospace;
+    }
+    
+    .login-input {
+      width: 100%;
+      padding: 12px 16px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      color: #c9d1d9;
+      font-size: 14px;
+      font-family: 'Courier New', monospace;
+      margin-bottom: 1rem;
+    }
+    
+    .login-input:focus {
+      outline: none;
+      border-color: #58a6ff;
+      box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.3);
+    }
+    
+    .login-button {
+      width: 100%;
+      padding: 12px;
+      background: #238636;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-family: 'Courier New', monospace;
+    }
+    
+    .login-button:hover {
+      background: #2ea043;
+    }
+    
+    .login-button:active {
+      background: #1a7f37;
+    }
+    
+    .login-hint {
+      margin-top: 1rem;
+      font-size: 11px;
+      color: #6e7681;
+      font-family: 'Courier New', monospace;
+    }
+    
+    /* Top Bar */
+    .topbar {
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      color: #fff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+    }
+    
+    .topbar-left {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 12px;
+    }
+    
+    .kali-logo {
+      color: #367bf0;
+      font-weight: bold;
+    }
+    
+    .topbar-right {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 11px;
+    }
+    
+    /* Desktop */
+    .desktop {
+      background: url('https://images.unsplash.com/photo-1633167606207-d840b5070fc2?w=1920&q=80') center/cover;
+      height: 100vh;
+      padding-top: 35px;
+      position: relative;
+    }
+    
+    .desktop-content {
+      height: calc(100vh - 100px);
+      overflow-y: auto;
+      padding: 15px;
+      padding-bottom: 80px;
+    }
+    
+    /* Terminal Window */
+    .terminal-window {
+      background: rgba(23, 25, 35, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+    
+    .terminal-header {
+      background: rgba(40, 44, 52, 0.95);
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .terminal-title {
+      color: #abb2bf;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .terminal-buttons {
+      display: flex;
+      gap: 6px;
+    }
+    
+    .terminal-btn {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    
+    .btn-close { background: #ff5f56; }
+    .btn-minimize { background: #ffbd2e; }
+    .btn-maximize { background: #27c93f; }
+    
+    .terminal-body {
+      padding: 12px;
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      color: #00ff00;
+      max-height: 250px;
+      overflow-y: auto;
+      line-height: 1.4;
+    }
+    
+    .terminal-line {
+      margin: 2px 0;
+      word-break: break-all;
+    }
+    
+    .prompt { color: #5af78e; }
+    .prompt-path { color: #57c7ff; }
+    .error { color: #ff6b6b; }
+    .warning { color: #ffd93d; }
+    .success { color: #6bcf7f; }
+    .info { color: #57c7ff; }
+    
+    .cursor::after {
+      content: '█';
+      animation: blink 1s infinite;
+    }
+    
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    
+    /* Dock */
+    .dock {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(26, 26, 26, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 8px 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      z-index: 99;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .dock-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #fff;
+      font-size: 24px;
+      position: relative;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .dock-icon:active {
+      transform: scale(0.92);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    
+    .dock-icon:hover {
+      background: linear-gradient(145deg, #333, #252525);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+    
+    .dock-icon.terminal-icon {
+      background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
+      color: #5af78e;
+    }
+    
+    .dock-icon.bug-icon {
+      background: linear-gradient(145deg, #3a2a2a, #2a1a1a);
+      color: #ff6b6b;
+    }
+    
+    .dock-icon.bomb-icon {
+      background: linear-gradient(145deg, #3a3020, #2a2010);
+      color: #ffd93d;
+    }
+    
+    .dock-icon.tiktok-icon {
+      background: linear-gradient(145deg, #ff0050, #00f2ea);
+      color: #fff;
+      font-weight: bold;
+    }
+    
+    .dock-icon.reset-icon {
+      background: linear-gradient(145deg, #2a3a3a, #1a2a2a);
+      color: #57c7ff;
+    }
+    
+    .notification-popup {
+      position: fixed;
+      top: 45px;
+      right: 10px;
+      left: 10px;
+      background: rgba(40, 44, 52, 0.98);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 12px;
+      color: #fff;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+      animation: slideDown 0.3s ease-out;
+      z-index: 1000;
+      font-size: 12px;
+    }
+    
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    .glitch {
+      animation: glitchAnim 0.3s infinite;
+    }
+    
+    @keyframes glitchAnim {
+      0% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(-2px, -2px); }
+      60% { transform: translate(2px, 2px); }
+      80% { transform: translate(2px, -2px); }
+      100% { transform: translate(0); }
+    }
+    
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Screen -->
+  <div class="login-screen" id="login-screen">
+    <div class="login-box">
+      <div class="login-avatar">
+        <i class="fas fa-dragon"></i>
+      </div>
+      <div class="login-title">Kali Linux</div>
+      <div class="login-subtitle">root@kali</div>
+      <div class="field">
+        <div class="control has-icons-left">
+          <input class="input" type="password" placeholder="Enter password" id="password-input">
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </div>
+      </div>
+      <button class="button is-primary is-fullwidth mt-3" onclick="login()">
+        <span class="icon"><i class="fas fa-sign-in-alt"></i></span>
+        <span>Sign In</span>
+      </button>
+      <p class="mt-3" style="font-size: 11px; color: #999;">Hint: Any password works 😉</p>
+    </div>
+  </div>
+  
+  <!-- Top Bar -->
+  <div class="topbar hidden" id="topbar">
+    <div class="topbar-left">
+      <div class="kali-logo"><i class="fas fa-dragon"></i> Kali</div>
+    </div>
+    <div class="topbar-right">
+      <span id="clock">00:00</span>
+      <i class="fas fa-wifi"></i>
+      <i class="fas fa-battery-full"></i>
+    </div>
+  </div>
+  
+  <!-- Desktop -->
+  <div class="desktop hidden" id="desktop">
+    <div class="desktop-content">
+      <!-- Terminal Window -->
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <div class="terminal-title">
+            <i class="fas fa-terminal"></i>
+            <span>root@kali</span>
+          </div>
+          <div class="terminal-buttons">
+            <div class="terminal-btn btn-close"></div>
+            <div class="terminal-btn btn-minimize"></div>
+            <div class="terminal-btn btn-maximize"></div>
+          </div>
+        </div>
+        <div class="terminal-body" id="terminal">
+          <div class="terminal-line"><span class="prompt">┌──(</span><span class="prompt-path">root@kali</span><span class="prompt">)-[</span><span class="prompt-path">~</span><span class="prompt">]</span></div>
+          <div class="terminal-line"><span class="prompt">└─# </span><span class="cursor"></span></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Dock -->
+    <div class="dock">
+      <div class="dock-icon terminal-icon" onclick="startHack()" title="Terminal">
+        <i class="fas fa-terminal"></i>
+      </div>
+      <div class="dock-icon bug-icon" onclick="downloadVirus()" title="Payload Generator">
+        <i class="fas fa-bug"></i>
+      </div>
+      <div class="dock-icon bomb-icon" onclick="nukeSystem()" title="System Nuke">
+        <i class="fas fa-bomb"></i>
+      </div>
+      <div class="dock-icon tiktok-icon" onclick="openTikTok()" title="Follow on TikTok">
+        <i class="fab fa-tiktok"></i>
+      </div>
+      <div class="dock-icon reset-icon" onclick="location.reload()" title="Reset">
+        <i class="fas fa-redo"></i>
+      </div>
+    </div>
+  </div>
+  
+  <div id="notifications"></div>
+  
+  <script>
+    let commandRunning = false;
+    
+    // Login function
+    function login() {
+      const password = document.getElementById('password-input').value;
+      if (password.length > 0) {
+        document.getElementById('login-screen').style.opacity = '0';
+        document.getElementById('login-screen').style.transition = 'opacity 0.5s';
+        setTimeout(() => {
+          document.getElementById('login-screen').classList.add('hidden');
+          document.getElementById('topbar').classList.remove('hidden');
+          document.getElementById('desktop').classList.remove('hidden');
+          bootSequence();
+        }, 500);
+      }
+    }
+    
+    // Allow Enter key to login
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('password-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') login();
+      });
+    });
+    
+    // Boot sequence
+    function bootSequence() {
+      setTimeout(() => {
+        addLine('Kali Linux 2024.2', 'success');
+        addLine('Kernel: 6.3.0-kali1-amd64', 'info');
+        addLine('');
+        addLine('Welcome! Click dock icons to start 🐉', 'success');
+        addLine('');
+        addPrompt();
+      }, 300);
+    }
+    
+    // Update clock
+    function updateClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+      document.getElementById('clock').textContent = time;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+    
+    function addLine(text, type = '') {
+      const terminal = document.getElementById('terminal');
+      const line = document.createElement('div');
+      line.className = `terminal-line ${type}`;
+      line.textContent = text;
+      
+      const cursorLine = terminal.querySelector('.cursor').parentElement;
+      terminal.insertBefore(line, cursorLine);
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+    
+    function addPrompt() {
+      const terminal = document.getElementById('terminal');
+      const line = document.createElement('div');
+      line.className = 'terminal-line';
+      line.innerHTML = '<span class="prompt">┌──(</span><span class="prompt-path">root@kali</span><span class="prompt">)-[</span><span class="prompt-path">~</span><span class="prompt">]</span>';
+      
+      const cursorLine = terminal.querySelector('.cursor').parentElement;
+      terminal.insertBefore(line, cursorLine);
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+    
+    function typeCommand(cmd, callback) {
+      const cursorLine = document.getElementById('terminal').querySelector('.cursor');
+      let i = 0;
+      const interval = setInterval(() => {
+        if (i < cmd.length) {
+          cursorLine.insertAdjacentText('beforebegin', cmd[i]);
+          i++;
+        } else {
+          clearInterval(interval);
+          cursorLine.textContent = '';
+          if (callback) callback();
+        }
+      }, 30);
+    }
+    
+    function showNotification(title, message, type = 'info') {
+      const notif = document.createElement('div');
+      notif.className = 'notification-popup';
+      notif.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+          <i class="fas fa-${type === 'error' ? 'exclamation-circle' : type === 'success' ? 'check-circle' : 'info-circle'}" style="color: ${type === 'error' ? '#ff6b6b' : type === 'success' ? '#6bcf7f' : '#57c7ff'}"></i>
+          <strong>${title}</strong>
+        </div>
+        <div style="font-size: 11px; color: #ccc;">${message}</div>
+      `;
+      document.getElementById('notifications').appendChild(notif);
+      setTimeout(() => notif.remove(), 3500);
+    }
+    
+    function startHack() {
+      if (commandRunning) return;
+      commandRunning = true;
+      
+      addPrompt();
+      typeCommand('msfconsole', () => {
+        setTimeout(() => {
+          addLine('');
+          addLine('metasploit v6.3.25', 'info');
+          addLine('2345 exploits loaded', 'info');
+          addLine('');
+          addLine('msf6 > use exploit/multi/handler', 'success');
+          addLine('msf6 > set payload reverse_tcp', 'success');
+          
+          setTimeout(() => {
+            addLine('msf6 > exploit', 'success');
+            addLine('');
+            addLine('[*] Started handler on 0.0.0.0:4444', 'info');
+            addLine('[*] Sending stage...', 'info');
+            
+            setTimeout(() => {
+              addLine('[*] Meterpreter session opened!', 'success');
+              addLine('');
+              addLine('meterpreter > sysinfo', 'warning');
+              addLine('Computer: YOUR-PC', 'info');
+              addLine('OS: Windows 11', 'info');
+              
+              setTimeout(() => {
+                addLine('');
+                addLine('═══════════════════════════════', 'error');
+                addLine('  😂 GOTCHA! ALL FAKE! 😂', 'error');
+                addLine('═══════════════════════════════', 'error');
+                addLine('');
+                addLine('Nothing was hacked!', 'success');
+                addLine('You got pranked! 🎉', 'success');
+                addLine('');
+                addLine('Follow me on TikTok: @shad😎', 'info');
+                
+                showNotification('Gotcha!', '🎉 Pranked! Follow @shad😎 on TikTok!', 'success');
+                confetti({
+                  particleCount: 50,
+                  spread: 60,
+                  origin: { y: 0.7 }
+                });
+                
+                commandRunning = false;
+                addPrompt();
+              }, 1500);
+            }, 1500);
+          }, 1500);
+        }, 800);
+      });
+    }
+    
+    function downloadVirus() {
+      if (commandRunning) return;
+      commandRunning = true;
+      
+      addPrompt();
+      typeCommand('msfvenom -p windows/reverse_tcp -f exe > virus.exe', () => {
+        setTimeout(() => {
+          addLine('[*] Platform: Windows', 'warning');
+          addLine('[*] Encoding payload...', 'info');
+          
+          let progress = 0;
+          const interval = setInterval(() => {
+            progress += 20;
+            addLine(`[*] Progress: ${progress}%`, 'info');
+            
+            if (progress >= 100) {
+              clearInterval(interval);
+              addLine('[+] Payload created!', 'success');
+              addLine('');
+              addLine('Just kidding! 😜', 'warning');
+              addLine('No malware created!', 'success');
+              addLine('');
+              addLine('Follow @shad😎 on TikTok!', 'info');
+              
+              showNotification('Nice Try!', 'No viruses! Follow @shad😎 😄', 'success');
+              confetti();
+              
+              commandRunning = false;
+              addPrompt();
+            }
+          }, 400);
+        }, 500);
+      });
+    }
+    
+    function nukeSystem() {
+      if (commandRunning) return;
+      commandRunning = true;
+      
+      showNotification('WARNING', '⚠️ System nuke initiated!', 'error');
+      
+      addPrompt();
+      typeCommand('rm -rf /', () => {
+        setTimeout(() => {
+          addLine('');
+          addLine('⚠️ DELETING SYSTEM ⚠️', 'error');
+          addLine('');
+          
+          const files = [
+            '/bin/bash',
+            '/etc/passwd',
+            '/home/user',
+            '/boot/vmlinuz'
+          ];
+          
+          files.forEach((file, i) => {
+            setTimeout(() => {
+              addLine(`rm: ${file} DELETED`, 'error');
+              
+              if (i === files.length - 1) {
+                setTimeout(() => {
+                  addLine('');
+                  addLine('kernel panic!', 'error');
+                  
+                  setTimeout(() => {
+                    document.querySelector('.topbar').classList.add('glitch');
+                    
+                    setTimeout(() => {
+                      addLine('');
+                      addLine('═══════════════════════════════', 'success');
+                      addLine(' 😂 RELAX! ALL FAKE! 😂', 'success');
+                      addLine('═══════════════════════════════', 'success');
+                      addLine('');
+                      addLine('Nothing deleted!', 'success');
+                      addLine('System is fine! 🎉', 'success');
+                      addLine('');
+                      addLine('Follow @shad😎 on TikTok!', 'info');
+                      
+                      document.querySelector('.topbar').classList.remove('glitch');
+                      
+                      showNotification('System OK!', '✨ Pranked! Follow @shad😎', 'success');
+                      
+                      for (let i = 0; i < 3; i++) {
+                        setTimeout(() => {
+                          confetti({
+                            particleCount: 50,
+                            angle: 60,
+                            spread: 50,
+                            origin: { x: 0, y: 0.8 }
+                          });
+                          confetti({
+                            particleCount: 50,
+                            angle: 120,
+                            spread: 50,
+                            origin: { x: 1, y: 0.8 }
+                          });
+                        }, i * 200);
+                      }
+                      
+                      commandRunning = false;
+                      addPrompt();
+                    }, 1500);
+                  }, 800);
+                }, 500);
+              }
+            }, i * 400);
+          });
+        }, 500);
+      });
+    }
+  </script>
+</body>
+</html>
