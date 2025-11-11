@@ -13,14 +13,14 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+   
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow: hidden;
       height: 100vh;
       background: #000;
     }
-    
+   
     /* Login Screen */
     .login-screen {
       position: fixed;
@@ -34,7 +34,7 @@
       justify-content: center;
       z-index: 10000;
     }
-    
+   
     .login-box {
       background: #161b22;
       border: 1px solid #30363d;
@@ -45,7 +45,7 @@
       max-width: 400px;
       text-align: center;
     }
-    
+   
     .login-avatar {
       width: 100px;
       height: 100px;
@@ -59,7 +59,7 @@
       font-size: 3rem;
       color: #58a6ff;
     }
-    
+   
     .login-title {
       font-size: 1.8rem;
       font-weight: 600;
@@ -67,14 +67,14 @@
       color: #c9d1d9;
       font-family: 'Courier New', monospace;
     }
-    
+   
     .login-subtitle {
       color: #8b949e;
       margin-bottom: 2rem;
       font-size: 1rem;
       font-family: 'Courier New', monospace;
     }
-    
+   
     .login-input {
       width: 100%;
       padding: 12px 16px;
@@ -86,13 +86,13 @@
       font-family: 'Courier New', monospace;
       margin-bottom: 1rem;
     }
-    
+   
     .login-input:focus {
       outline: none;
       border-color: #58a6ff;
       box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.3);
     }
-    
+   
     .login-button {
       width: 100%;
       padding: 12px;
@@ -106,22 +106,22 @@
       transition: background 0.2s;
       font-family: 'Courier New', monospace;
     }
-    
+   
     .login-button:hover {
       background: #2ea043;
     }
-    
+   
     .login-button:active {
       background: #1a7f37;
     }
-    
+   
     .login-hint {
       margin-top: 1rem;
       font-size: 11px;
       color: #6e7681;
       font-family: 'Courier New', monospace;
     }
-    
+   
     /* Top Bar */
     .topbar {
       background: rgba(0, 0, 0, 0.9);
@@ -138,41 +138,41 @@
       right: 0;
       z-index: 100;
     }
-    
+   
     .topbar-left {
       display: flex;
       gap: 10px;
       align-items: center;
       font-size: 12px;
     }
-    
+   
     .kali-logo {
       color: #367bf0;
       font-weight: bold;
     }
-    
+   
     .topbar-right {
       display: flex;
       gap: 8px;
       align-items: center;
       font-size: 11px;
     }
-    
+   
     /* Desktop */
     .desktop {
-      background: url('https://images.unsplash.com/photo-1633167606207-d840b5070fc2?w=1920&q=80') center/cover;
+      background: url('https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop') center/cover;
       height: 100vh;
       padding-top: 35px;
       position: relative;
     }
-    
+   
     .desktop-content {
       height: calc(100vh - 100px);
       overflow-y: auto;
       padding: 15px;
       padding-bottom: 80px;
     }
-    
+   
     /* Terminal Window */
     .terminal-window {
       background: rgba(23, 25, 35, 0.95);
@@ -182,7 +182,7 @@
       margin-bottom: 15px;
       overflow: hidden;
     }
-    
+   
     .terminal-header {
       background: rgba(40, 44, 52, 0.95);
       padding: 8px 12px;
@@ -190,7 +190,7 @@
       justify-content: space-between;
       align-items: center;
     }
-    
+   
     .terminal-title {
       color: #abb2bf;
       font-size: 12px;
@@ -198,23 +198,23 @@
       align-items: center;
       gap: 6px;
     }
-    
+   
     .terminal-buttons {
       display: flex;
       gap: 6px;
     }
-    
+   
     .terminal-btn {
       width: 10px;
       height: 10px;
       border-radius: 50%;
       cursor: pointer;
     }
-    
+   
     .btn-close { background: #ff5f56; }
     .btn-minimize { background: #ffbd2e; }
     .btn-maximize { background: #27c93f; }
-    
+   
     .terminal-body {
       padding: 12px;
       font-family: 'Courier New', monospace;
@@ -224,29 +224,29 @@
       overflow-y: auto;
       line-height: 1.4;
     }
-    
+   
     .terminal-line {
       margin: 2px 0;
       word-break: break-all;
     }
-    
+   
     .prompt { color: #5af78e; }
     .prompt-path { color: #57c7ff; }
     .error { color: #ff6b6b; }
     .warning { color: #ffd93d; }
     .success { color: #6bcf7f; }
     .info { color: #57c7ff; }
-    
+   
     .cursor::after {
       content: '█';
       animation: blink 1s infinite;
     }
-    
+   
     @keyframes blink {
       0%, 50% { opacity: 1; }
       51%, 100% { opacity: 0; }
     }
-    
+   
     /* Dock */
     .dock {
       position: fixed;
@@ -263,7 +263,7 @@
       z-index: 99;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
-    
+   
     .dock-icon {
       width: 48px;
       height: 48px;
@@ -280,44 +280,49 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.05);
     }
-    
+   
     .dock-icon:active {
       transform: scale(0.92);
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
-    
+   
     .dock-icon:hover {
       background: linear-gradient(145deg, #333, #252525);
       transform: translateY(-3px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     }
-    
+   
     .dock-icon.terminal-icon {
       background: linear-gradient(145deg, #2d2d2d, #1a1a1a);
       color: #5af78e;
     }
-    
+   
     .dock-icon.bug-icon {
       background: linear-gradient(145deg, #3a2a2a, #2a1a1a);
       color: #ff6b6b;
     }
-    
+   
     .dock-icon.bomb-icon {
       background: linear-gradient(145deg, #3a3020, #2a2010);
       color: #ffd93d;
     }
-    
+   
     .dock-icon.tiktok-icon {
       background: linear-gradient(145deg, #ff0050, #00f2ea);
       color: #fff;
       font-weight: bold;
     }
-    
+   
     .dock-icon.reset-icon {
       background: linear-gradient(145deg, #2a3a3a, #1a2a2a);
       color: #57c7ff;
     }
-    
+
+    .dock-icon.logs-icon {
+      background: linear-gradient(145deg, #2a3a3a, #1a2a2a);
+      color: #ffd93d;
+    }
+   
     .notification-popup {
       position: fixed;
       top: 45px;
@@ -334,7 +339,7 @@
       z-index: 1000;
       font-size: 12px;
     }
-    
+   
     @keyframes slideDown {
       from {
         transform: translateY(-100px);
@@ -345,11 +350,11 @@
         opacity: 1;
       }
     }
-    
+   
     .glitch {
       animation: glitchAnim 0.3s infinite;
     }
-    
+   
     @keyframes glitchAnim {
       0% { transform: translate(0); }
       20% { transform: translate(-2px, 2px); }
@@ -358,9 +363,59 @@
       80% { transform: translate(2px, -2px); }
       100% { transform: translate(0); }
     }
-    
+   
     .hidden {
       display: none;
+    }
+
+    /* Logs Window */
+    .logs-window {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      max-width: 600px;
+      height: 60%;
+      background: rgba(23, 25, 35, 0.98);
+      backdrop-filter: blur(10px);
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      z-index: 1001;
+      display: none;
+    }
+
+    .logs-header {
+      background: rgba(40, 44, 52, 0.95);
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .logs-title {
+      color: #abb2bf;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .close-logs {
+      color: #ff5f56;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .logs-body {
+      padding: 12px;
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      color: #00ff00;
+      height: calc(100% - 50px);
+      overflow-y: auto;
+      line-height: 1.4;
     }
   </style>
 </head>
@@ -375,20 +430,20 @@
       <div class="login-subtitle">root@kali</div>
       <div class="field">
         <div class="control has-icons-left">
-          <input class="input" type="password" placeholder="Enter password" id="password-input">
+          <input class="input login-input" type="password" placeholder="Enter password" id="password-input">
           <span class="icon is-small is-left">
             <i class="fas fa-lock"></i>
           </span>
         </div>
       </div>
-      <button class="button is-primary is-fullwidth mt-3" onclick="login()">
+      <button class="login-button" onclick="login()">
         <span class="icon"><i class="fas fa-sign-in-alt"></i></span>
         <span>Sign In</span>
       </button>
-      <p class="mt-3" style="font-size: 11px; color: #999;">Hint: Any password works 😉</p>
+      <p class="login-hint">Hint: Any password works 😉</p>
     </div>
   </div>
-  
+ 
   <!-- Top Bar -->
   <div class="topbar hidden" id="topbar">
     <div class="topbar-left">
@@ -400,7 +455,7 @@
       <i class="fas fa-battery-full"></i>
     </div>
   </div>
-  
+ 
   <!-- Desktop -->
   <div class="desktop hidden" id="desktop">
     <div class="desktop-content">
@@ -423,7 +478,7 @@
         </div>
       </div>
     </div>
-    
+   
     <!-- Dock -->
     <div class="dock">
       <div class="dock-icon terminal-icon" onclick="startHack()" title="Terminal">
@@ -435,6 +490,9 @@
       <div class="dock-icon bomb-icon" onclick="nukeSystem()" title="System Nuke">
         <i class="fas fa-bomb"></i>
       </div>
+      <div class="dock-icon logs-icon" onclick="openLogs()" title="Hack Logs">
+        <i class="fas fa-file-alt"></i>
+      </div>
       <div class="dock-icon tiktok-icon" onclick="openTikTok()" title="Follow on TikTok">
         <i class="fab fa-tiktok"></i>
       </div>
@@ -443,16 +501,88 @@
       </div>
     </div>
   </div>
-  
+
+  <!-- Logs Window -->
+  <div class="logs-window" id="logs-window">
+    <div class="logs-header">
+      <div class="logs-title">
+        <i class="fas fa-file-alt"></i>
+        <span>Hack Logs</span>
+      </div>
+      <div class="close-logs" onclick="closeLogs()">&times;</div>
+    </div>
+    <div class="logs-body" id="logs-body">
+      No logs yet. Perform a hack to log a device!
+    </div>
+  </div>
+ 
   <div id="notifications"></div>
-  
+ 
   <script>
     let commandRunning = false;
-    
+    let hackLogs = JSON.parse(localStorage.getItem('hackLogs')) || [];
+
+    // Function to get approximate device/OS info
+    function getDeviceInfo() {
+      const userAgent = navigator.userAgent;
+      let os = 'Unknown';
+      let browser = 'Unknown';
+
+      // Detect OS
+      if (/Windows/.test(userAgent)) os = 'Windows';
+      else if (/Mac OS/.test(userAgent)) os = 'macOS';
+      else if (/Linux/.test(userAgent)) os = 'Linux';
+      else if (/Android/.test(userAgent)) os = 'Android';
+      else if (/iPhone|iPad|iPod/.test(userAgent)) os = 'iOS';
+
+      // Detect Browser
+      if (/Chrome/.test(userAgent)) browser = 'Chrome';
+      else if (/Firefox/.test(userAgent)) browser = 'Firefox';
+      else if (/Safari/.test(userAgent)) browser = 'Safari';
+      else if (/Edge/.test(userAgent)) browser = 'Edge';
+
+      const timestamp = new Date().toLocaleString();
+      const deviceName = `${os} ${browser} Device`;
+
+      // Log to localStorage (simulates live app logs - persists across sessions in same browser)
+      const logEntry = { device: deviceName, timestamp: timestamp, userAgent: userAgent };
+      hackLogs.unshift(logEntry); // Add to front
+      if (hackLogs.length > 50) hackLogs = hackLogs.slice(0, 50); // Keep last 50
+      localStorage.setItem('hackLogs', JSON.stringify(hackLogs));
+
+      // Optional: Send to your server for true live logging (replace with your endpoint)
+      // fetch('https://your-server.com/log', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(logEntry)
+      // }).catch(err => console.error('Log send failed:', err));
+
+      return deviceName;
+    }
+
+    // Function to open logs
+    function openLogs() {
+      const logsBody = document.getElementById('logs-body');
+      if (hackLogs.length === 0) {
+        logsBody.innerHTML = 'No logs yet. Perform a hack to log a device!';
+      } else {
+        logsBody.innerHTML = hackLogs.map(log => 
+          `<div class="terminal-line info">[${log.timestamp}] Hacked: ${log.device}</div>`
+        ).join('');
+      }
+      document.getElementById('logs-window').style.display = 'block';
+    }
+
+    function closeLogs() {
+      document.getElementById('logs-window').style.display = 'none';
+    }
+
     // Login function
     function login() {
       const password = document.getElementById('password-input').value;
       if (password.length > 0) {
+        // Log access on login
+        getDeviceInfo();
         document.getElementById('login-screen').style.opacity = '0';
         document.getElementById('login-screen').style.transition = 'opacity 0.5s';
         setTimeout(() => {
@@ -463,14 +593,14 @@
         }, 500);
       }
     }
-    
+   
     // Allow Enter key to login
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('password-input').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') login();
       });
     });
-    
+   
     // Boot sequence
     function bootSequence() {
       setTimeout(() => {
@@ -482,7 +612,7 @@
         addPrompt();
       }, 300);
     }
-    
+   
     // Update clock
     function updateClock() {
       const now = new Date();
@@ -491,29 +621,29 @@
     }
     setInterval(updateClock, 1000);
     updateClock();
-    
+   
     function addLine(text, type = '') {
       const terminal = document.getElementById('terminal');
       const line = document.createElement('div');
       line.className = `terminal-line ${type}`;
       line.textContent = text;
-      
+     
       const cursorLine = terminal.querySelector('.cursor').parentElement;
       terminal.insertBefore(line, cursorLine);
       terminal.scrollTop = terminal.scrollHeight;
     }
-    
+   
     function addPrompt() {
       const terminal = document.getElementById('terminal');
       const line = document.createElement('div');
       line.className = 'terminal-line';
       line.innerHTML = '<span class="prompt">┌──(</span><span class="prompt-path">root@kali</span><span class="prompt">)-[</span><span class="prompt-path">~</span><span class="prompt">]</span>';
-      
+     
       const cursorLine = terminal.querySelector('.cursor').parentElement;
       terminal.insertBefore(line, cursorLine);
       terminal.scrollTop = terminal.scrollHeight;
     }
-    
+   
     function typeCommand(cmd, callback) {
       const cursorLine = document.getElementById('terminal').querySelector('.cursor');
       let i = 0;
@@ -528,7 +658,7 @@
         }
       }, 30);
     }
-    
+   
     function showNotification(title, message, type = 'info') {
       const notif = document.createElement('div');
       notif.className = 'notification-popup';
@@ -542,11 +672,18 @@
       document.getElementById('notifications').appendChild(notif);
       setTimeout(() => notif.remove(), 3500);
     }
-    
+
+    function openTikTok() {
+      window.open('https://www.tiktok.com/@shad', '_blank');
+    }
+   
     function startHack() {
       if (commandRunning) return;
       commandRunning = true;
-      
+
+      // Log the "hack" attempt
+      const deviceName = getDeviceInfo();
+     
       addPrompt();
       typeCommand('msfconsole', () => {
         setTimeout(() => {
@@ -556,38 +693,38 @@
           addLine('');
           addLine('msf6 > use exploit/multi/handler', 'success');
           addLine('msf6 > set payload reverse_tcp', 'success');
-          
+         
           setTimeout(() => {
             addLine('msf6 > exploit', 'success');
             addLine('');
             addLine('[*] Started handler on 0.0.0.0:4444', 'info');
             addLine('[*] Sending stage...', 'info');
-            
+           
             setTimeout(() => {
               addLine('[*] Meterpreter session opened!', 'success');
               addLine('');
               addLine('meterpreter > sysinfo', 'warning');
-              addLine('Computer: YOUR-PC', 'info');
-              addLine('OS: Windows 11', 'info');
-              
+              addLine(`Computer: ${deviceName}`, 'info');
+              addLine('OS: Detected via User-Agent', 'info');
+             
               setTimeout(() => {
                 addLine('');
                 addLine('═══════════════════════════════', 'error');
-                addLine('  😂 GOTCHA! ALL FAKE! 😂', 'error');
+                addLine(' 😂 GOTCHA! ALL FAKE! 😂', 'error');
                 addLine('═══════════════════════════════', 'error');
                 addLine('');
                 addLine('Nothing was hacked!', 'success');
                 addLine('You got pranked! 🎉', 'success');
                 addLine('');
                 addLine('Follow me on TikTok: @shad😎', 'info');
-                
+               
                 showNotification('Gotcha!', '🎉 Pranked! Follow @shad😎 on TikTok!', 'success');
                 confetti({
                   particleCount: 50,
                   spread: 60,
                   origin: { y: 0.7 }
                 });
-                
+               
                 commandRunning = false;
                 addPrompt();
               }, 1500);
@@ -596,22 +733,23 @@
         }, 800);
       });
     }
-    
+   
     function downloadVirus() {
       if (commandRunning) return;
       commandRunning = true;
-      
+     
+      getDeviceInfo();
       addPrompt();
       typeCommand('msfvenom -p windows/reverse_tcp -f exe > virus.exe', () => {
         setTimeout(() => {
           addLine('[*] Platform: Windows', 'warning');
           addLine('[*] Encoding payload...', 'info');
-          
+         
           let progress = 0;
           const interval = setInterval(() => {
             progress += 20;
             addLine(`[*] Progress: ${progress}%`, 'info');
-            
+           
             if (progress >= 100) {
               clearInterval(interval);
               addLine('[+] Payload created!', 'success');
@@ -620,10 +758,10 @@
               addLine('No malware created!', 'success');
               addLine('');
               addLine('Follow @shad😎 on TikTok!', 'info');
-              
+             
               showNotification('Nice Try!', 'No viruses! Follow @shad😎 😄', 'success');
               confetti();
-              
+             
               commandRunning = false;
               addPrompt();
             }
@@ -631,39 +769,40 @@
         }, 500);
       });
     }
-    
+   
     function nukeSystem() {
       if (commandRunning) return;
       commandRunning = true;
-      
+     
+      getDeviceInfo();
       showNotification('WARNING', '⚠️ System nuke initiated!', 'error');
-      
+     
       addPrompt();
       typeCommand('rm -rf /', () => {
         setTimeout(() => {
           addLine('');
           addLine('⚠️ DELETING SYSTEM ⚠️', 'error');
           addLine('');
-          
+         
           const files = [
             '/bin/bash',
             '/etc/passwd',
             '/home/user',
             '/boot/vmlinuz'
           ];
-          
+         
           files.forEach((file, i) => {
             setTimeout(() => {
               addLine(`rm: ${file} DELETED`, 'error');
-              
+             
               if (i === files.length - 1) {
                 setTimeout(() => {
                   addLine('');
                   addLine('kernel panic!', 'error');
-                  
+                 
                   setTimeout(() => {
                     document.querySelector('.topbar').classList.add('glitch');
-                    
+                   
                     setTimeout(() => {
                       addLine('');
                       addLine('═══════════════════════════════', 'success');
@@ -674,11 +813,11 @@
                       addLine('System is fine! 🎉', 'success');
                       addLine('');
                       addLine('Follow @shad😎 on TikTok!', 'info');
-                      
+                     
                       document.querySelector('.topbar').classList.remove('glitch');
-                      
+                     
                       showNotification('System OK!', '✨ Pranked! Follow @shad😎', 'success');
-                      
+                     
                       for (let i = 0; i < 3; i++) {
                         setTimeout(() => {
                           confetti({
@@ -695,7 +834,7 @@
                           });
                         }, i * 200);
                       }
-                      
+                     
                       commandRunning = false;
                       addPrompt();
                     }, 1500);
